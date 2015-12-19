@@ -8,7 +8,7 @@ public class BlowfishAlgoBCRYPT
 	public static final String bcCrypt(String password)
 	{
 		// Hashage d'un mot de passe
-		String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
+		// String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
 
 		// Il est possible d'augmenter la complexité (et donc le temps
 		// de traitement) en passant le "workfactor" en paramètre
