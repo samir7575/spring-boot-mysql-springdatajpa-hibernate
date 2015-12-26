@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.softdesign.dao.UserDAO;
 import com.softdesign.domain.User;
-import com.softdesign.tools.BlowfishAlgoBCRYPT;
+import com.softdesign.dto.basic.UserDTO;
+import com.softdesign.service.IUserService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,27 +27,31 @@ public class UserController
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
-	UserDAO userDAO;
+	private UserDAO userDAO;
+	@Autowired
+	private IUserService userService;
 
 	/**
 	 * GET /create --> Create a new user and save it in the database.
 	 */
-	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = RestMediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/createUser", method = RequestMethod.POST, produces = RestMediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Créer un utilisateur avec un email et un nom.")
-	public String create(
+	public String createUser(
+		@RequestParam("idClient") Long idClient,
+		@RequestParam("nom") String nom,
+		@RequestParam("prenom") String prenom,
 		@RequestParam("email") String email,
-		@RequestParam("name") String name,
-		@RequestParam("password") String password,
 		HttpServletRequest request)
 	{
-		LOGGER.info("Invoking create with user = {}, and email {}", name, email);
+		LOGGER.info("Invoking create with clientId = {}, and name = {}, prenom ={}, email ={}", idClient, nom, prenom,
+			email);
 		LOGGER.info("" + request);
 		User user = null;
 		try
 		{
-			String hashedPassword = BlowfishAlgoBCRYPT.bcCrypt(password);
-			user = new User(email, name, hashedPassword);
+			// String hashedPassword = BlowfishAlgoBCRYPT.bcCrypt(password);
+			user = new User(idClient, email, prenom, nom);
 			userDAO.save(user);
 		} catch (Exception ex)
 		{
@@ -83,19 +88,19 @@ public class UserController
 	@RequestMapping(value = "/get-by-email", method = RequestMethod.GET, produces = RestMediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Récupérer un utilisateur à partir de son email.")
-	public User getUserByEmail(@RequestParam("email") String email, HttpServletRequest request)
+	public UserDTO getUserByEmail(@RequestParam("email") String email, HttpServletRequest request)
 	{
 		LOGGER.info("Invoking getUserByEmail for user with email ={}", email);
 		LOGGER.info(request + "");
-		User user = null;
+		UserDTO userDTO = null;
 		try
 		{
-			user = userDAO.findByEmail(email);
+			userDTO = userService.findByEmail(email);
 		} catch (Exception ex)
 		{
 			return null;
 		}
-		return user;
+		return userDTO;
 	}
 
 	/**
@@ -108,15 +113,15 @@ public class UserController
 	public String updateUser(
 		@RequestParam("idUser") long idUser,
 		@RequestParam("email") String email,
-		@RequestParam("name") String name, HttpServletRequest request)
+		@RequestParam("nom") String nom, HttpServletRequest request)
 	{
-		LOGGER.info("Invoking updateUser for user with id ={} by new name {} and new email {}", idUser, name, email);
+		LOGGER.info("Invoking updateUser for user with id ={} by new name {} and new email {}", idUser, nom, email);
 		LOGGER.info(request + "");
 		try
 		{
 			User user = userDAO.findOne(idUser);
 			user.setEmail(email);
-			user.setName(name);
+			user.setNom(nom);
 			userDAO.save(user);
 		} catch (Exception ex)
 		{

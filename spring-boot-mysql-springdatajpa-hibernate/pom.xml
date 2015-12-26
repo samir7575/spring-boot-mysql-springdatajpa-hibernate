@@ -43,19 +43,16 @@
 			<version>2.2.2</version>
 		</dependency>
 		
-				<!-- AOP -->
-
+		<!-- AOP -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
-			<version>1.7.4</version>
-		</dependency>
+			</dependency>
 
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
-			<version>1.7.4</version>
-		</dependency>
+			</dependency>
 
 		<!-- JBCRYT-->
 		<dependency>
@@ -68,8 +65,7 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.5</version>
-		</dependency>
+			</dependency>
 		
 		<!-- Scala -->
 		<dependency>
@@ -86,13 +82,17 @@
 			<scope>test</scope>
 		</dependency>
 		
-		
+		<!-- Utils -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+		</dependency>
 	</dependencies>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<start-class>softdesign.Application</start-class>
-		<java.version>1.7</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 
 	<build>
