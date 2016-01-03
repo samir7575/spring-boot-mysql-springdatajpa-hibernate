@@ -2,6 +2,7 @@ package com.softdesign.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.softdesign.convertor.basic.UserConvertor;
 import com.softdesign.dao.UserDAO;
@@ -14,6 +15,7 @@ import com.softdesign.dto.basic.UserDTO;
  *
  */
 @Service("userService")
+@Transactional
 public class UserService implements IUserService
 {
 

@@ -20,11 +20,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
+@RequestMapping(UserController.User_CONTROLLER_PATH)
 @Api(value = "UserController", description = "Service Rest de l'utilisateur")
 public class UserController
 {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+	public static final String User_CONTROLLER_PATH = "/users";
 
 	@Autowired
 	private UserDAO userDAO;
