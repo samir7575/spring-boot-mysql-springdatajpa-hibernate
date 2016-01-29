@@ -12,6 +12,11 @@ public interface IUserService
 	 */
 	void changePassword(long userId, String oldPassword, String newPassword);
 
+	/**
+	 * Find user by Email
+	 * @param email
+	 * @return
+	 */
 	UserDTO findByEmail(String email);
 
 }
