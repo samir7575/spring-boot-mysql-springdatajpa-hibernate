@@ -31,7 +31,7 @@ public class LookupCodedManager<CODE, MANAGED extends HasCode<CODE>>
 	{
 		this.byIdMap = new HashMap<CODE, MANAGED>(values.length);
 		for (MANAGED tl : values)
-		{
+		{// lplp
 			byIdMap.put(tl.getCode(), tl);
 		}
 	}
